@@ -1,0 +1,53 @@
+{
+    "voices": [
+      {
+        "id": "FGY2WhTYpPnrIDTdsKH5",
+        "name": "laura",
+        "gender": "F",
+        "category": "story narrator"
+      },
+      {
+        "id": "2EiwWnXFnvU5JabPnv8n",
+        "name": "clyde",
+        "gender": "M",
+        "category": "story narrator"
+      },
+      {
+        "id": "onwK4e9ZLuTAKqWW03F9",
+        "name": "daniel",
+        "gender": "M",
+        "category": "life podcast"
+      },
+      {
+        "id": "ThT5KcBeYPX3keUQqHPh",
+        "name": "dorothy",
+        "gender": "F",
+        "category": "startup podcast"
+      },
+      {
+        "id": "LcfcDJNUP1GQjkzn1xUU",
+        "name": "emily",
+        "gender": "F",
+        "category": "life podcast"
+      },
+      {
+        "id": "JBFqnCBsd6RMkjVDRZzb",
+        "name": "george",
+        "gender": "M",
+        "category": "motivation"
+      },
+      {
+        "id": "t0jbNlBVZ17f02VDIeMI",
+        "name": "jessie",
+        "gender": "M",
+        "category": "life podcast"
+      },
+      {
+        "id": "EXAVITQu4vr4xnSDxMaL",
+        "name": "sarah",
+        "gender": "F",
+        "category": "mystery thriller"
+      }
+      
+    ]
+  }
