@@ -3,7 +3,7 @@ import PodCastCard from "./PodCastCard"
 
 const PopularPodcast = ({ data }) => {
   return (
-    <div>
+    <div className="pb-10 md:pb-0">
         <div>
             <h1 className="text-white-1 text-20 font-semibold">
                 Popular Podcast

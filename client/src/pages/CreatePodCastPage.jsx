@@ -280,7 +280,7 @@ function CreatePodCastPage() {
             }
           />
         </div>
-        <div className="mt-10">
+        <div className="mt-10 pb-8 md:pb-3">
           <Button
             type="submit"
             disabled={

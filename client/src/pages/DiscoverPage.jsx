@@ -119,7 +119,7 @@ function DiscoverPage() {
       ) : (
         <>
           {podcasts && podcasts?.length > 0 ? (
-            <div className="podcast_grid">
+            <div className="podcast_grid pb-10 md:pb-5">
               {podcasts?.map((podcast) => (
                 <MobilePodcastCard
                   key={podcast?._id}

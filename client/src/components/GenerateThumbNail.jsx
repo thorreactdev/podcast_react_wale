@@ -186,7 +186,7 @@ function GenerateThumbNail({imageURL, setImageURL, imagePrompt, setImagePrompt, 
                                 </div>
                                 {hoverQuestionMark && (
                                     <div
-                                        className="absolute top-[35px] md:top-5 left-14 md:left-60 mt-2 bg-black-1 w-full max-w-[400px] text-justify border border-black-6 text-white-1 font-semibold text-[12px] p-4 rounded-xl z-20">
+                                        className="absolute top-[35px] md:top-5 left-2 md:left-60 mt-2 bg-black-1 w-full max-w-[400px] text-justify border border-black-6 text-white-1 font-semibold text-[12px] p-4 rounded-xl z-20">
                                         Hi, {user?.username}! You can enter only 800 characters to generate an image, so
                                         make sure your prompt is clear and detailed. Once the image is generated, you
                                         won’t be able to edit it or submit another prompt for the same request. Credit
@@ -234,7 +234,7 @@ function GenerateThumbNail({imageURL, setImageURL, imagePrompt, setImagePrompt, 
                             </div>
                             {hoverQuestionMark && (
                                 <div
-                                    className="absolute top-5 left-14 md:left-40 mt-2 bg-black-1 w-full max-w-[400px] text-justify border border-black-6 text-white-1 font-semibold text-[12px] p-4 rounded-xl">
+                                    className="absolute top-5 left-4 md:left-40 mt-2 bg-black-1 w-full max-w-[400px] text-justify border border-black-6 text-white-1 font-semibold text-[12px] p-4 rounded-xl">
                                     Hi, {user?.username}! Please upload only image file. No other file types are
                                     supported, file size should be max of 3MB
                                 </div>

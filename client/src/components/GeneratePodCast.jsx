@@ -109,12 +109,12 @@ function GeneratePodCast({voicePrompt, setVoicePrompt, voiceId, setAudioDuration
                     {
                         hoverQuestionMark && location?.pathname?.startsWith("/edit") ? (
                             <div
-                                className="absolute top-full left-52 mt-2 bg-black-1 w-full max-w-[400px] text-justify border border-black-6 text-white-1 font-semibold text-[12px] p-4 rounded-xl z-20"
+                                className="absolute top-[25px] left-4 mt-2 bg-black-1 w-full max-w-[400px] text-justify border border-black-6 text-white-1 font-semibold text-[12px] p-4 rounded-xl z-20"
                             >Hi , {user?.username} , You cannot edit the voice prompt or generate a new one! You can edit all other part accept this</div>
                         ):
                             hoverQuestionMark && location?.pathname === "/create-podcast" &&(
                             <div
-                                className="absolute top-[25px] md:top-full left-14 md:left-52 mt-2 bg-black-1 w-full max-w-[400px] text-justify border border-black-6 text-white-1 font-semibold text-[10px] md:text-[12px] p-4 rounded-xl z-20">
+                                className="absolute top-[25px] md:top-full left-6 md:left-52 mt-2 bg-black-1 w-full max-w-[400px] text-justify border border-black-6 text-white-1 font-semibold text-[10px] md:text-[12px] p-4 rounded-xl z-20">
                                 Hi, {user?.username}! Please enter your podcast text carefully, as once the audio is
                                 generated,
                                 you won’t be able to edit it. Your podcast should be between 500 to 1800 characters and

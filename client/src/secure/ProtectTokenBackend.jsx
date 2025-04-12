@@ -17,6 +17,7 @@ const ProtectTokenBackend = ({ children }) => {
         },
       });
       const data = await res.json();
+      console.log(data);
       if (!data?.success) {
         toast({
           title: data?.message,

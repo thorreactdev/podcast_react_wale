@@ -134,7 +134,7 @@ function PodcastDetailPage() {
               </p>
             </div>
           </div>
-          <section className="mt-8 flex flex-col gap-4">
+          <section className="mt-8 flex flex-col gap-4 pb-10 md:pb-0">
             <div className="flex items-center justify-between">
             <Button className="bg-black-1 hover:bg-black-4"   onClick={() => page > 1 && setPage(page - 1)}>
               <ChevronLeft
