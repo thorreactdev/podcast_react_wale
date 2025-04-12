@@ -5,6 +5,7 @@ import {Button} from "@/components/ui/button.jsx";
 import {Link} from "react-router-dom";
 import {Loader, MailIcon} from "lucide-react";
 import {useAuth} from "@/context/AuthContext.jsx";
+import { toast } from "@/hooks/use-toast";
 
 function ForgotPasswordPage() {
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -25,10 +26,15 @@ function ForgotPasswordPage() {
             const data = await res.json();
             if(data?.success){
                 setIsSubmitted(true);
-                alert(data?.message);
+                toast({
+                    title : data?.message,
+                })
             }else {
                 setLoading(false);
-                alert(data?.message);
+                toast({
+                    title : data?.message,
+                    variant : "destructive"
+                })
             }
         }catch (e) {
             console.log(e);
@@ -39,7 +45,8 @@ function ForgotPasswordPage() {
 
 
     return (
-        <div className="max-w-md w-full bg-black-1 rounded-2xl shadow-xl">
+        <div className="p-4">
+             <div className="max-w-md w-full bg-black-1 rounded-2xl shadow-xl">
             <div className="p-8">
                 <h2 className="text-white-1 font-semibold text-xl text-center">
                     Forgot Password
@@ -85,6 +92,9 @@ function ForgotPasswordPage() {
             </div>
 
         </div>
+
+        </div>
+       
 )
 }
 

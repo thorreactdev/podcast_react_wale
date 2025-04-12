@@ -18,7 +18,6 @@ function MyProfilePage() {
       setIsLoading(true);
       const res = await fetch(`/api/get-user-podcast/${user?._id}`);
       const data = await res.json();
-      console.log(data);
       if (data?.success) {
         setPodcasts(data?.podcastData);
       } else {

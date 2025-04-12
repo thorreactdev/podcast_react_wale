@@ -72,7 +72,7 @@ function MobileNav() {
             {/* </SheetClose> */}
           </div>
 
-          <div className="flex-center w-full pb-20 max-lg:px-4 lg:pr-5">
+          <div className="flex-center w-full pb-28 max-lg:px-4 lg:pr-5">
             {user && user?.isVerified ? (
               <SheetClose asChild>
                 <Button

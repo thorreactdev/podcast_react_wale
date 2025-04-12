@@ -1,31 +1,30 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "./ui/button";
 import { useAudio } from "@/context/AudioContext";
 
 const ProfileCard = ({ imageUrl, userName, podcast, credits, email }) => {
-    const { setAudio } = useAudio();
+    const { setAudio , audio } = useAudio();
     const [randomPodcast , setRandomPodcast] = useState({});
     
     const totalViews = podcast?.reduce((acc, p)=> {
         return acc + p.views;
     }, 0)
 
-    const handleRandomPodcast = () =>{
-        const randomIndex = Math.floor(Math.random() * podcast.length);
-        setRandomPodcast(podcast[randomIndex]);
-    }
-
-    useEffect(()=>{
-        if(randomPodcast){
-            setAudio({
-                title : randomPodcast?.podcastTitle,
-                audioUrl : randomPodcast?.audioUrl,
-                imageUrl : randomPodcast?.imageUrl,
-                podcastCreator : randomPodcast?.podcastCreator,
-                podcastId : randomPodcast?._id
-            })
-        }
-    },[randomPodcast, setAudio]);
+    const handleRandomPodcast = () => {
+      const randomIndex = Math.floor(Math.random() * podcast.length);
+      const selected = podcast[randomIndex];
+      setRandomPodcast(selected);
+    
+      if (selected?.podcastTitle && selected?.audioUrl) {
+        setAudio({
+          title: selected.podcastTitle,
+          audioUrl: selected.audioUrl,
+          imageUrl: selected.imageUrl,
+          podcastCreator: selected.podcastCreator,
+          podcastId: selected._id,
+        });
+      }
+    };
   return (
     <div className="mt-8">
       <div className="flex md:gap-10 flex-col items-center justify-center md:items-start md:justify-start md:flex-row">
@@ -60,7 +59,7 @@ const ProfileCard = ({ imageUrl, userName, podcast, credits, email }) => {
               </span>
             )}
           </div>
-          <figure className="flex gap-2 items-center">
+          <figure className="flex gap-2 items-center justify-center md:justify-start">
             <img src="/icons/headphone.svg" alt="headphone"/>
             <h2 className="text-white-1 font-semibold">
                 {totalViews} &nbsp; 

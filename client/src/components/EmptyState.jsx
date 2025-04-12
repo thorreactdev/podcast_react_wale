@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 function EmptyState({ title , search = true, buttonLink , buttonText}) {
     return(
-        <div className="flex-center size-full flex-col gap-3">
+        <div className="flex-center size-full flex-col gap-3 pb-12 md:pb-3">
             <img src="/icons/emptyState.svg" alt="search icon"/>
             <div className="flex-center w-full flex-col gap-3">
                 <h1 className="text-white-1 font-semibold">{title}</h1>

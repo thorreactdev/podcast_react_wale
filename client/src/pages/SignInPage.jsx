@@ -38,7 +38,6 @@ function SignInPage() {
                 body : JSON.stringify({email: email, password: password})
             });
             const data = await res.json();
-            console.log(data);
             if(data?.success){
                 setUser(data?.userData);
                 localStorage.setItem("user", JSON.stringify(data?.userData));

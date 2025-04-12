@@ -63,7 +63,6 @@ export async function generateAudioFromElevenLabs(req, res , next){
         });
 
     }catch (e) {
-      console.log(e);
       return next(errorHandler(500 , "Error Generating Audio"));
     }
 }
@@ -108,7 +107,6 @@ export async function generateImageFromClickDrop(req, res, next){
             }
         });
     }catch (e) {
-        console.log(e);
         return next(errorHandler(500 , "Error Generating Image"));
     }
 }
@@ -128,7 +126,6 @@ export async function uploadCustomImage(req, res , next){
             }
         })
     }catch (e) {
-        console.log(e);
         return next(errorHandler(500 , "Error uploading custom image file"));
     }
 

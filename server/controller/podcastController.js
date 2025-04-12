@@ -77,7 +77,7 @@ export async function createPodcast(req, res, next) {
             userData : user,
         });
     } catch (e) {
-        console.log(e);
+
         return next(errorHandler(500, "Error Creating Podcast"));
     }
 }
@@ -90,7 +90,6 @@ export async function getAllPodcast(req,res, next){
         }
         res.status(200).json({ success : true , message : "Podcast fetched successfully" , podcastData : podcastData});
     }catch (e){
-        console.log(e);
         return next(errorHandler(500 , "Internal server error"));
     }
 }
@@ -116,7 +115,6 @@ export async function userEditPodcast(req,res,next){
             podcastData : findAndUpdatePodcast
         })
     }catch (e) {
-        console.log(e);
         return next(errorHandler(500, "Error editing podcast"));
     }
 }
@@ -137,7 +135,6 @@ export async function singleUserPodcast(req, res , next){
             podcastData : getSingleUserPodcast
         })
     }catch (e){
-        console.log(e);
         return next(errorHandler(500 , "Error user Podcast"));
     }
 }
@@ -237,7 +234,6 @@ export async function getTopPodcaster(req, res , next){
           );
     res.status(200).json({success : true , message: "top podcaster fetched success" , topOne : podcastsByPodcaster, topPodcasterView : topPodcaster})
     }catch(e){
-        console.log(e);
         return next(errorHandler(500, "Internal Server Error"));
     }
 }
@@ -270,7 +266,6 @@ export async function getAllPodcastDiscoverWithSearchFilter(req, res , next) {
             totalPages : Math.ceil(totalPodcasts / limit)
         });
     }catch(e){
-        console.log(e);
         return next(errorHandler(500 , "Internal Server Error"));
     }
     

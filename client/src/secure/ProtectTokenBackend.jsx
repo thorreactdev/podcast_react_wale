@@ -17,7 +17,6 @@ const ProtectTokenBackend = ({ children }) => {
         },
       });
       const data = await res.json();
-      console.log(data);
       if (!data?.success) {
         toast({
           title: data?.message,
@@ -26,12 +25,12 @@ const ProtectTokenBackend = ({ children }) => {
         logoutUser();
       }
     } catch (err) {
-      console.log(err);
+      console.log("something went wrong", err);
     }
   }
 
   useEffect(() => {
-    handleTokenChecking();
+      handleTokenChecking();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

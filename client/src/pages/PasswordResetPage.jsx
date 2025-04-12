@@ -5,6 +5,7 @@ import {useAuth} from "@/context/AuthContext.jsx";
 import {useParams} from "react-router-dom";
 import {Loader} from "lucide-react";
 import {useNavigate} from "react-router-dom";
+import { toast } from "@/hooks/use-toast";
 
 function PasswordResetPage() {
     const [password, setPassword] = useState("");
@@ -33,11 +34,16 @@ function PasswordResetPage() {
             });
             const data = await res.json();
             if(data?.success){
-                alert(data?.message);
+                toast({
+                    title : data?.message,
+                })
                 navigate("/sign-in");
             }else{
                 setLoading(false);
-                alert(data?.message);
+                toast({
+                    title : data?.message,
+                    variant : "destructive"
+                })
             }
         }catch (e) {
             console.log(e);

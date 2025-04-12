@@ -23,7 +23,7 @@ function PodcastDetailPage() {
   const [similarPodcastData, setSimilarPodcastData] = useState([]);
   const isOwner = user?._id === singlePodcastData?.userId;
 
-  console.log(singlePodcastData);
+  
 
   async function fetchSinglePodcast() {
     try {

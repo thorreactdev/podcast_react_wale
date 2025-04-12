@@ -4,6 +4,7 @@ import RightSideBar from "@/components/RightSideBar.jsx";
 import MobileNav from "@/components/MobileNav.jsx";
 import { Toaster } from "@/components/ui/toaster.jsx";
 import PodcastPlayer from "@/components/PodcastPlayer";
+import ScrollTop from "@/components/ScrollTop";
 
 // eslint-disable-next-line react/prop-types
 function AppLayout({ children }) {
@@ -29,6 +30,7 @@ function AppLayout({ children }) {
   }
   return (
     <div className="relative flex flex-col">
+      <ScrollTop/>
       <main className="relative flex">
         <aside>
           <LeftSideBar />

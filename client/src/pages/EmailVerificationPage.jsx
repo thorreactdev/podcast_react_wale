@@ -137,8 +137,8 @@ function EmailVerificationPage() {
     },[timer]);
 
     return(
-        <div className='flex items-center justify-center h-screen w-full'>
-            <div className="w-full bg-black-1 max-w-lg rounded-2xl shadow-xl overflow-hidden p-8 flex flex-col gap-2">
+        <div className='flex items-center justify-center h-screen w-full p-2.5'>
+            <div className="w-full bg-black-1 max-w-lg rounded-2xl shadow-xl overflow-hidden p-4 flex flex-col gap-2">
                 <h2 className="text-center text-white-1 font-semibold text-xl mb-3">
                     Verify Email
                 </h2>

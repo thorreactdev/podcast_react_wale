@@ -18,7 +18,6 @@ import Podcast from "../schema/podcastSchema.js";
 
 export async function signupController(req, res, next) {
     const { username, email, password } = req.body;
-    console.log(username, email ,password);
     if (!username || !email || !password) {
         return next(errorHandler(404, "Please Provide Signup Credentials"));
     }
@@ -59,7 +58,6 @@ export async function signupController(req, res, next) {
             userData : rest
         })
     } catch (e) {
-        console.log(e);
         return next(errorHandler(500, "Failed To Create User"));
     }
 }
@@ -91,7 +89,6 @@ export async function loginController(req,res,next){
             message : `Welcome Back ${userExistData?.username}`
         })
     }catch (e) {
-        console.log(e);
         return next(errorHandler(500, "Failed To Login User"));
     }
 }
@@ -128,7 +125,6 @@ export const googleAuth = async (req,res, next)=>{
 
             await newGoogleUser.save();
             const token = jwt.sign({ id : newGoogleUser?._id , email : newGoogleUser?.email} , process.env.JWT_SECRET, {expiresIn: "1d"});
-            console.log(token);
             const { password , ...rest} = newGoogleUser?._doc;
             await sendWelcomeEmail(email , newGoogleUser?.username);
             res.cookie("token" , token , {httpOnly : true}).status(200).json({
@@ -152,7 +148,6 @@ export const githubAuth = async (req,res, next)=>{
         const existingUser = await checkExistingUser(email);
         if(existingUser){
             const token = jwt.sign({ id : existingUser?._id , email : existingUser?.email} , process.env.JWT_SECRET, {expiresIn: "1d"});
-            console.log(token);
             const { password , ...rest} = existingUser?._doc;
             await sendWelcomeEmail(existingUser?.email , existingUser?.username);
             res.cookie("token" , token , {httpOnly : true}).status(200).json({
@@ -176,7 +171,6 @@ export const githubAuth = async (req,res, next)=>{
 
             await newGithubUser.save();
             const token = jwt.sign({ id : newGithubUser?._id , email : newGithubUser?.email} , process.env.JWT_SECRET, {expiresIn: "1d"});
-            console.log(token);
             const { password , ...rest} = newGithubUser?._doc;
             await sendWelcomeEmail(newGithubUser?.email , newGithubUser?.username);
             res.cookie("token" , token , {httpOnly : true}).status(200).json({
@@ -336,7 +330,6 @@ export const updateProfilePic = async (req, res ,next)=>{
             userData : user
         })
     }catch (e) {
-        console.log(e);
         return next(errorHandler(500 , "Error uploading profile pic image"));
     }
 }
