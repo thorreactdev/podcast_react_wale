@@ -17,6 +17,7 @@ const PodcastPlayer = () => {
     "linear-gradient(to right, #000, #222, #444)"
   );
 
+
   useEffect(() => {
     const img = new Image();
     img.crossOrigin = "Anonymous";
@@ -24,13 +25,13 @@ const PodcastPlayer = () => {
 
     img.onload = () => {
       const colortheif = new ColorTheif();
-      const colors = colortheif.getPalette(img, 3);
+      const colors = colortheif.getPalette(img, 2);
       if (colors && colors?.length >= 2) {
         const [r1, g1, b1] = colors[0];
         const [r2, g2, b2] = colors[1];
-        const [r3 , g3 , b3] = colors[2];
+        // const [r3 , g3 , b3] = colors[2];
         setBgGradient(
-          `linear-gradient(to right, rgb(${r1},${g1},${b1}), rgb(${r2},${g2},${b2}) , rgb(${r3},${g3},${b3}))`
+          `linear-gradient(to right, rgb(${r1},${g1},${b1}), rgb(${r2},${g2},${b2}))`
         );
       }
     };
