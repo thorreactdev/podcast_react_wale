@@ -9,11 +9,11 @@ import EmptyState from "@/components/EmptyState.jsx";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import MobilePodcastCard from "@/components/MobilePodcastCard";
-
+import SummaryModal from "@/model/SummaryModal";
 
 function PodcastDetailPage() {
   const { podcastId } = useParams();
-  
+
   const { user } = useAuth();
   const [page, setPage] = useState(1);
   const limit = 4;
@@ -21,9 +21,10 @@ function PodcastDetailPage() {
   const [isLoadingPodcast, setIsLoadingPodcast] = useState(false);
   const [isSimilarPodcastLoading, setIsSimilarPodcastLoading] = useState(true);
   const [similarPodcastData, setSimilarPodcastData] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+  const [summary, setSummary] = useState("");
+  const [summaryLoading, setSummaryLoading] = useState(false);
   const isOwner = user?._id === singlePodcastData?.userId;
-
-  
 
   async function fetchSinglePodcast() {
     try {
@@ -73,7 +74,38 @@ function PodcastDetailPage() {
     }
   }
 
-  
+  async function handleGetSummary() {
+    try {
+      setSummaryLoading(true);
+      const res = await fetch("/api/podcast-summary", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ transcription: singlePodcastData?.voicePrompt }),
+      });
+      const data = await res.json();
+      if (data?.success) {
+        setSummary(data?.summaryData);
+        toast({
+          title: data?.message,
+          variant: "default",
+        });
+      } else {
+        toast({
+          title: data?.message,
+          variant: "destructive",
+        });
+        setSummary(false);
+      }
+    } catch (e) {
+      console.log(e);
+      setSummary(false);
+    }finally{
+      setSummaryLoading(false);
+    }
+  }
 
   useEffect(() => {
     if (podcastId) {
@@ -113,13 +145,26 @@ function PodcastDetailPage() {
             podcastId={podcastId}
             {...singlePodcastData}
           />
-          <p className="text-white-2 text-sm md:text-16 font-medium pt-[45px] pb-8">
+          <p className="text-white-2 text-sm md:text-[14.9px] font-semibold pt-[45px] pb-8">
             {singlePodcastData?.podcastDescription}
           </p>
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-4">
-              <h1 className="text-white-1 font-bold text-18">Transcription</h1>
-              <p className="text-white-2 text-sm md:text-16 font-medium">
+              <div className="flex justify-between items-center">
+                <h1 className="text-white-1 font-bold text-18">
+                  Transcription
+                </h1>
+                <Button
+                  className="text-white-1 font-semibold bg-black-1 border border-black-4 md:w-[200px]"
+                  onClick={() => {
+                    setOpenModal(true);
+                    handleGetSummary();
+                  }}
+                >
+                  Get Summary
+                </Button>
+              </div>
+              <p className="text-white-2 text-sm md:text-[14.9px] font-semibold text-justify">
                 {singlePodcastData?.voicePrompt}
               </p>
             </div>
@@ -136,20 +181,27 @@ function PodcastDetailPage() {
           </div>
           <section className="mt-8 flex flex-col gap-4 pb-10 md:pb-0">
             <div className="flex items-center justify-between">
-            <Button className="bg-black-1 hover:bg-black-4"   onClick={() => page > 1 && setPage(page - 1)}>
-              <ChevronLeft
-                className={`text-white-1 cursor-pointer ${
-                  page === 1 ? "opacity-50 cursor-not-allowed" : ""
-                }`}
-                size={24}
-              />
-            </Button>    
-             <Button disabled={similarPodcastData?.length === 0} className="bg-black-1 hover:bg-black-4" onClick={() => setPage(page + 1)}>
-              <ChevronRight
-                className={`text-white-1 cursor-pointer`}
-                size={24}
-              />
-             </Button>
+              <Button
+                className="bg-black-1 hover:bg-black-4"
+                onClick={() => page > 1 && setPage(page - 1)}
+              >
+                <ChevronLeft
+                  className={`text-white-1 cursor-pointer ${
+                    page === 1 ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
+                  size={24}
+                />
+              </Button>
+              <Button
+                disabled={similarPodcastData?.length === 0}
+                className="bg-black-1 hover:bg-black-4"
+                onClick={() => setPage(page + 1)}
+              >
+                <ChevronRight
+                  className={`text-white-1 cursor-pointer`}
+                  size={24}
+                />
+              </Button>
             </div>
             <div>
               <h1 className="text-20 font-bold text-white-1">
@@ -188,6 +240,13 @@ function PodcastDetailPage() {
               />
             )}
           </section>
+          {openModal && (
+            <SummaryModal
+              onClose={() => setOpenModal(false)}
+              summary={summary}
+              summaryLoading={summaryLoading}
+            />
+          )}
         </section>
       )}
     </>

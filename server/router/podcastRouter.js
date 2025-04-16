@@ -34,4 +34,5 @@ router.route("/get-latest-podcast").get(getLatestPodcast);
 router.route("/get-popular-podcast").get(getPopularPodcast);
 router.route("/check-credits").get(authChecker, checkUserCredit);
 
+
 export default router;

@@ -11,6 +11,7 @@ dotenv.config();
 import authRoute from "./router/authRouter.js";
 import podcastRoute from "./router/podcastRouter.js";
 import protectedRoute from "./router/protectedRouter.js";
+import podcastEpisodeRoute from "./router/podcastEpisodeRouter.js";
 
 
 
@@ -32,6 +33,7 @@ app.use(cookieParser());
 app.use("/api", authRoute);
 app.use("/api" , podcastRoute);
 app.use("/api", protectedRoute);
+app.use("/api", podcastEpisodeRoute);
 
 
 app.use(express.static(path.join(__dirname, '/client/dist')));

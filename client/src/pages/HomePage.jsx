@@ -101,7 +101,7 @@ function HomePage() {
                 </Link>
               </Button>
               <Button className="px-6 text-white-1 py-6 border border-white hover:bg-white hover:text-black rounded-full font-bold transition">
-                <Link to="/discover">
+                <Link to="/create-youtube-podcast">
                 Explore Podcast
                 </Link>
               </Button>
