@@ -1,6 +1,7 @@
 import { useAuth } from "@/context/AuthContext";
-import { toast } from "@/hooks/use-toast";
+// import { toast } from "@/hooks/use-toast";
 import { useEffect } from "react";
+import { toast } from "sonner";
 
 // eslint-disable-next-line react/prop-types
 const ProtectTokenBackend = ({ children }) => {
@@ -18,10 +19,7 @@ const ProtectTokenBackend = ({ children }) => {
       });
       const data = await res.json();
       if (!data?.success) {
-        toast({
-          title: data?.message,
-          variant: "destructive",
-        });
+        toast.error(data?.message || "Session expired, please login again.");
         logoutUser();
       }
     } catch (err) {

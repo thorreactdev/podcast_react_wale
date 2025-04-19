@@ -7,7 +7,8 @@ import GenerateThumbNail from "@/components/GenerateThumbNail.jsx";
 import { Loader } from "lucide-react";
 import { useAuth } from "@/context/AuthContext.jsx";
 import { usePodcast } from "@/context/PodCastContext.jsx";
-import { toast } from "@/hooks/use-toast.js";
+// import { toast } from "@/hooks/use-toast.js";
+import {toast} from "sonner";
 import { useNavigate, useParams } from "react-router-dom";
 import { createPodcastInitialFormData } from "@/utils/initialFormData.js";
 import { useEffect, useState } from "react";
@@ -20,6 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
+
 
 function CreatePodCastPage() {
   const { user, setUser } = useAuth();
@@ -79,15 +81,17 @@ function CreatePodCastPage() {
         );
         const data = await response.json();
         if (data?.success) {
-          toast({
-            title: data?.message,
-          });
+          // toast({
+          //   title: data?.message,
+          // });
+          toast.success(data?.message);
           setPodcastData(createPodcastInitialFormData);
         } else {
-          toast({
-            title: data?.message,
-            variant: "destructive",
-          });
+          // toast({
+          //   title: data?.message,
+          //   variant: "destructive",
+          // });
+          toast.error(data?.message);
           navigate("/");
         }
       } else {
@@ -105,17 +109,19 @@ function CreatePodCastPage() {
         if (data?.success) {
           setUser(data?.userData);
           localStorage.setItem("user", JSON.stringify(data?.userData));
-          toast({
-            title: data?.message,
-          });
+          // toast({
+          //   title: data?.message,
+          // });
+          toast.success(data?.message);
           setPodcastData(createPodcastInitialFormData);
           navigate("/");
         } else {
           setIsSubmitting(false);
-          toast({
-            title: data?.message,
-            variant: "destructive",
-          });
+          // toast({
+          //   title: data?.message,
+          //   variant: "destructive",
+          // });
+          toast.error(data?.message);
         }
       }
     } catch (e) {
@@ -138,9 +144,10 @@ function CreatePodCastPage() {
         }, {});
         setPodcastData(setValuesInFormData);
       } else {
-        toast({
-          title: data?.message || "something went wrong",
-        });
+        // toast({
+        //   title: data?.message || "something went wrong",
+        // });
+        toast.error(data?.message || "something went wrong");
       }
     } catch (e) {
       console.log(e);

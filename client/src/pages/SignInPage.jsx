@@ -7,11 +7,12 @@ import {Eye, EyeOff, Loader} from 'lucide-react';
 import {Button} from "@/components/ui/button.jsx";
 import {Link,useNavigate} from "react-router-dom";
 import {useAuth} from "@/context/AuthContext.jsx";
-import {useToast} from "@/hooks/use-toast.js";
+// import {useToast} from "@/hooks/use-toast.js";
+import { toast } from "sonner";
 
 
 function SignInPage() {
-    const { toast } = useToast();
+    // const { toast } = useToast();
     const [isPasswordVisible, setIsPasswordVisible] = useState(true);
     const navigate = useNavigate();
     const { loading , setLoading , setUser } = useAuth();
@@ -42,23 +43,21 @@ function SignInPage() {
                 setUser(data?.userData);
                 localStorage.setItem("user", JSON.stringify(data?.userData));
                 setLoading(false);
-                toast({
-                    title : data?.message,
-                })
-                navigate("/");
-            }else{
-                toast({
-                    title : data.message,
-                    variant : "destructive",
+                toast.success(data?.message, {
+                    position: "top-right",
+                    duration: 3000,
+                    className: "bg-green-500 text-white",
                 });
+                navigate("/");
+                
+            }else{
+                toast.error(data?.message);
                 setLoading(false);
 
             }
         }catch (e) {
             setLoading(false);
-            toast({
-                title : e.message
-            });
+            toast.error(e.message);
         }
     }
     return (

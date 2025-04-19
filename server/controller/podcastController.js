@@ -32,7 +32,7 @@ export async function createPodcast(req, res, next) {
         if (podcastTitle?.length < 5 || podcastTitle?.length > 200) {
             return next(errorHandler(400, "Title must be of min 5 character and max 150 char"));
         }
-        if (podcastDescription.length < 30 || podcastDescription?.length > 600) {
+        if (podcastDescription.length < 30 || podcastDescription?.length > 1000) {
             return next(errorHandler(400, "Description must be of min 5 character and max 500 char"));
         }
 
@@ -319,6 +319,32 @@ export async function checkUserCredit(req, res , next){
             success : true,
             message : "credits found",
             credits : user?.credits
+        })
+
+    }catch(e){
+        return next(errorHandler(500 , "Internal Server Error"));
+    }
+
+}
+
+export async function handleViewIncrement(req, res , next){
+    try{
+        const { podcastId } = req.params;
+        if(!podcastId){
+            return next(errorHandler(404 , "No podcast found"));
+        }
+
+        const podcastData = await Podcast.findById(podcastId);
+        if(!podcastData){
+            return next(errorHandler(404 , "No Podcast Found"));
+        }
+        podcastData.views +=1;
+        await podcastData.save();
+
+        res.status(200).json({
+            success : true,
+            message : "Podcast view incremented",
+            podcastData : podcastData
         })
 
     }catch(e){

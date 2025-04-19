@@ -5,6 +5,7 @@ import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import Header from "./Header";
 import {  useNavigate } from "react-router-dom";
+import { formatNumber } from "@/utils/formatNumber";
 
  // eslint-disable-next-line react/prop-types
 const EmblaCarousel = ({ options , top }) => {
@@ -28,6 +29,8 @@ const EmblaCarousel = ({ options , top }) => {
 
   const navigate = useNavigate();
 
+  
+
   return (
     <section
       className="flex w-full flex-col gap-4 overflow-hidden mt-10 pb-10"
@@ -35,7 +38,9 @@ const EmblaCarousel = ({ options , top }) => {
     >
       <div className="flex">
         {top?.map((p)=>(
-          <figure key={p?._id} className="carousel_box" onClick={()=> navigate(`/podcast-details/${p?._id}`)}>
+          <figure key={p?._id} className="carousel_box" onClick={()=>{
+            navigate(`/podcast-details/${p?._id}`);
+          }}>
             <img src={p?.imageUrl} alt="card" className="rounded-xl border-none absolute"/>
             <div className="glassmorphism-black relative z-10 flex flex-col rounded-b-xl p-4">
               <h2 className="text-14 font-semibold text-white-1">{p?.podcastTitle}</h2>
@@ -72,7 +77,7 @@ const EmblaCarousel = ({ options , top }) => {
               </div>
             </div>
             <span className="text-[12px] font-semibold">
-              {p?.views}
+              {formatNumber(p?.views)}
             </span>
           </div>
         ))}

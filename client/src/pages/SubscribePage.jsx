@@ -1,6 +1,14 @@
 import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
+import { toast } from "sonner";
 
 const SubscribePage = () => {
+  useEffect(()=>{
+   toast.error("You have no credits left. Please subscribe to create more podcasts.", {
+    className : "bg-red-500 text-white-1",
+   });
+  },[]);
+  
   return (
     <div className="bg-[#000] w-full h-full md:h-screen flex flex-col justify-center items-center py-6">
       <div className="flex flex-col justify-center items-center gap-4">

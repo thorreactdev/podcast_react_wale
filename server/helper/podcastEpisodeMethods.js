@@ -10,3 +10,19 @@ export async function getEpisodeSummary(transcription){
     });
     return outputSummary;
 }
+
+export async function getAnswerOfQuestion(question){
+    console.log("question", question);
+    const chatCompletion = await client.chatCompletion({
+        provider: "nebius",
+        model : "mistralai/Mistral-Nemo-Instruct-2407",
+        messages : [
+           { 
+            role : "user",
+            content : question
+           }
+        ],
+        max_tokens: 512,
+    });
+    return chatCompletion?.choices[0]?.message?.content;
+}

@@ -1,10 +1,12 @@
+// import { toast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+
 
 
 // eslint-disable-next-line react/prop-types
 const MobilePodcastCard = ({ imgURL , title , description , podcastId}) => {
     const navigate = useNavigate();
-    function handleViews(){
+   function handleViews(){
         navigate(`/podcast-details/${podcastId}`);
     }
   return (

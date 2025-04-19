@@ -136,7 +136,7 @@ function RightSideBar() {
       ): (
         <>
         <Header headerTitle="Fans Like You"/>
-        <EmblaCarousel  slides={SLIDES} options={OPTIONS} top={top}/>
+        <EmblaCarousel  slides={SLIDES} options={OPTIONS} top={top} />
         </>
       )}
     </div>

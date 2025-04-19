@@ -10,6 +10,9 @@ import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import MobilePodcastCard from "@/components/MobilePodcastCard";
 import SummaryModal from "@/model/SummaryModal";
+import QAChat from "@/components/QAChat";
+import FAQ from "@/components/FAQ";
+import { formatNumber } from "@/utils/formatNumber";
 
 function PodcastDetailPage() {
   const { podcastId } = useParams();
@@ -136,7 +139,7 @@ function PodcastDetailPage() {
             <figure className="flex gap-3">
               <img src="/icons/headphone.svg" width={20} alt="headphone" />
               <h2 className="text-white-1 font-semibold text-sm">
-                {singlePodcastData?.views && singlePodcastData?.views}
+                {singlePodcastData?.views && formatNumber(singlePodcastData?.views)}
               </h2>
             </figure>
           </header>
@@ -179,6 +182,8 @@ function PodcastDetailPage() {
               </p>
             </div>
           </div>
+          <QAChat podcastId={podcastId} />
+          <FAQ episodeId={podcastId}/>
           <section className="mt-8 flex flex-col gap-4 pb-10 md:pb-0">
             <div className="flex items-center justify-between">
               <Button
@@ -203,6 +208,7 @@ function PodcastDetailPage() {
                 />
               </Button>
             </div>
+          
             <div>
               <h1 className="text-20 font-bold text-white-1">
                 Similar Podcast

@@ -3,7 +3,8 @@ import {GoogleAuthProvider, signInWithPopup, getAuth} from 'firebase/auth';
 import {app} from "@/config/fireBaseConfig.js";
 import {useAuth} from "@/context/AuthContext.jsx";
 import {useNavigate} from "react-router-dom";
-import { toast } from "@/hooks/use-toast";
+// import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { Loader } from "lucide-react";
 import { useState } from "react";
 
@@ -33,17 +34,12 @@ function GoogleAuth() {
             if(data?.success){
                 setUser(data?.userData);
                 localStorage.setItem("user", JSON.stringify(data?.userData));
-                toast({
-                    title : data?.message
-                })// toast message;
+                toast.success(data?.message);
                 navigate("/");
 
             }else {
                 setLoading(false);
-                toast({
-                    title : data?.message,
-                    variant : "destructive"
-                });
+                toast.error(data?.message);
             }
         }catch (e){
             setLoading(false);

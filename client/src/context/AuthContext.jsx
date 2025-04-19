@@ -1,10 +1,12 @@
 import {createContext, useContext, useState} from "react";
 import {useToast} from "@/hooks/use-toast.js";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext(null);
 // eslint-disable-next-line react/prop-types
 export const AuthProvider = ({ children }) => {
     const { toast } = useToast();
+    const navigate = useNavigate();
     const [loading , setLoading] = useState(false);
     const [user , setUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
 
@@ -65,9 +67,7 @@ export const AuthProvider = ({ children }) => {
             if (data?.success) {
                 setUser(null);
                 localStorage.removeItem("user");
-                // toast({
-                //     title : data?.message
-                // })
+                navigate("/sign-in");
             } else {
                 toast({
                     title : data?.message

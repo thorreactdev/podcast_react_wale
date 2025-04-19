@@ -2,9 +2,10 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import LeftSideBar from "@/components/LeftSideBar.jsx";
 import RightSideBar from "@/components/RightSideBar.jsx";
 import MobileNav from "@/components/MobileNav.jsx";
-import { Toaster } from "@/components/ui/toaster.jsx";
+// import { Toaster } from "@/components/ui/toaster.jsx";
 import PodcastPlayer from "@/components/PodcastPlayer";
 import ScrollTop from "@/components/ScrollTop";
+import { Toaster } from "sonner";
 
 // eslint-disable-next-line react/prop-types
 function AppLayout({ children }) {
@@ -23,7 +24,7 @@ function AppLayout({ children }) {
   if (isAuthPage) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <Toaster />
+        <Toaster closeButton theme="dark" richColors={true} />
         <Outlet />
       </div>
     );
@@ -44,7 +45,7 @@ function AppLayout({ children }) {
               <MobileNav />
             </div>
             <div className="flex flex-col md:pb-14">
-              <Toaster />
+            <Toaster closeButton theme="dark" richColors={true}  />
               {children ? children : <Outlet />}
             </div>
           </div>

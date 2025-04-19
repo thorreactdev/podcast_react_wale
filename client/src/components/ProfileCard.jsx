@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { useAudio } from "@/context/AudioContext";
+import { formatNumber } from "@/utils/formatNumber";
 
 const ProfileCard = ({ imageUrl, userName, podcast, credits, email }) => {
     const { setAudio , audio } = useAudio();
@@ -48,8 +49,12 @@ const ProfileCard = ({ imageUrl, userName, podcast, credits, email }) => {
                 {userName}
             </p>
             
-            {credits && (
+            {credits ? (
                  <span className="text-sm text-white-1 font-semibold">
+                 Available Credits : {credits}
+               </span>
+            ): (
+              <span className="text-sm text-white-1 font-semibold">
                  Available Credits : {credits}
                </span>
             )}
@@ -62,7 +67,7 @@ const ProfileCard = ({ imageUrl, userName, podcast, credits, email }) => {
           <figure className="flex gap-2 items-center justify-center md:justify-start">
             <img src="/icons/headphone.svg" alt="headphone"/>
             <h2 className="text-white-1 font-semibold">
-                {totalViews} &nbsp; 
+                {formatNumber(totalViews)} &nbsp; 
                 <span className="text-white-2 text-sm">Monthly Listeners</span>
             </h2>
           </figure>

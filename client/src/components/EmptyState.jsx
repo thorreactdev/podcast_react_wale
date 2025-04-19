@@ -1,6 +1,7 @@
 import {Button} from "@/components/ui/button.jsx";
 import {Link} from "react-router-dom";
 
+// eslint-disable-next-line react/prop-types
 function EmptyState({ title , search = true, buttonLink , buttonText}) {
     return(
         <div className="flex-center size-full flex-col gap-3 pb-12 md:pb-3">

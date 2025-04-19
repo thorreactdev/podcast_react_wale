@@ -3,6 +3,8 @@ import { Button } from "./ui/button";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAudio } from "@/context/AudioContext";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 function PodcastDetailPlayer({
   // eslint-disable-next-line react/prop-types
@@ -28,15 +30,35 @@ function PodcastDetailPlayer({
   // const navigate = useNavigate();
   const [isDeleting, setIsDeleting] = useState(false);
   const { setAudio } = useAudio();
+  const navigate = useNavigate();
 
-  function handlePlay(){
+  async function handleViews(){
+    const res = await fetch(`/api/views-increment/${podcastId}`, {
+        method : "POST",
+        headers : {
+            "Content-Type" : "application/json",
+        },
+    });
+    const data = await res.json();
+    if(data?.success){
+        toast.success(data?.message , {
+            description : "Thankyou for listening to this podcast.",
+        });
+    }else{
+        toast.error(data?.message);
+    }
+    navigate(`/podcast-details/${podcastId}`);
+}
+
+  async function handlePlay(){
     setAudio({
       title : podcastTitle,
       audioUrl,
       imageUrl,
       podcastCreator,
       podcastId
-    })
+    });
+    await handleViews();
   }
 
   return (

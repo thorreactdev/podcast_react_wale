@@ -6,6 +6,7 @@ import {
     getAllPodcast, getAllPodcastDiscoverWithSearchFilter, getLatestPodcast, getPopularPodcast, getSimilarPodcast,
     getSinglePodcast,
     getTopPodcaster,
+    handleViewIncrement,
     singleUserPodcast,
     userEditPodcast
 } from "../controller/podcastController.js";
@@ -33,6 +34,7 @@ router.route("/get-discover-podcast").get(getAllPodcastDiscoverWithSearchFilter)
 router.route("/get-latest-podcast").get(getLatestPodcast);
 router.route("/get-popular-podcast").get(getPopularPodcast);
 router.route("/check-credits").get(authChecker, checkUserCredit);
+router.route("/views-increment/:podcastId").post(authChecker, handleViewIncrement);
 
 
 export default router;

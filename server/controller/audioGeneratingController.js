@@ -32,9 +32,9 @@ export async function generateAudioFromElevenLabs(req, res , next){
         if(!voiceId){
             return next(errorHandler(400 , "Please select the voice first"));
         }
-        if(voicePrompt?.length > 1800 || voicePrompt?.length < 500){
-            return next(errorHandler(400, "text Char min 500 and max 1800"));
-        }
+        // if(voicePrompt?.length > 1800 || voicePrompt?.length < 500){
+        //     return next(errorHandler(400, "text Char min 500 and max 1800"));
+        // }
         if(!voicePrompt?.toLowerCase()?.startsWith(REQUIRED_PREFIX.toLowerCase())){
             voicePrompt = `${REQUIRED_PREFIX} ${voicePrompt}`
         }
@@ -63,6 +63,7 @@ export async function generateAudioFromElevenLabs(req, res , next){
         });
 
     }catch (e) {
+      console.log(e);
       return next(errorHandler(500 , "Error Generating Audio"));
     }
 }

@@ -1,4 +1,5 @@
-import { toast } from '@/hooks/use-toast';
+// import { toast } from '@/hooks/use-toast';
+import { toast } from "sonner";
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 
@@ -13,11 +14,7 @@ const ProtectCheckCredit = ({ children }) => {
           });
           const data = await res.json();
           if(!data?.success){
-            toast({
-              title : data?.message,
-              variant : "destructive"
-            });
-
+           toast.error(data?.message || "Something went wrong while checking credits.");
             navigate("/subscribe" , { replace : true});
           }
         }

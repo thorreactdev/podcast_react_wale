@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { formatTime } from "@/lib/formatTime";
+import { formatNumber } from "@/utils/formatNumber";
 
 
 // eslint-disable-next-line react/prop-types
@@ -45,7 +46,7 @@ const LatestPodcast = ({ data }) => {
                       className="w-6 h-6"
                     />
                     <span className="text-white-1 text-sm font-semibold">
-                      {podcast?.views}
+                      {formatNumber(podcast?.views)}
                     </span>
                   </div>
                 </TableCell>

@@ -5,7 +5,8 @@ import {useState , useEffect} from "react";
 import {Loader, MessageCircleQuestion} from "lucide-react";
 import {useAuth} from "@/context/AuthContext.jsx";
 import {usePodcast} from "@/context/PodCastContext.jsx";
-import {toast} from "@/hooks/use-toast.js";
+// import {toast} from "@/hooks/use-toast.js";
+import {toast} from "sonner";
 
 
 const MAX_CHAR_LIMIT = 1800;
@@ -49,9 +50,10 @@ function GeneratePodCast({voicePrompt, setVoicePrompt, voiceId, setAudioDuration
         try {
             setIsVoiceGenerating(true);
             const timeout = setTimeout(()=>{
-                toast({
-                    title : "This might take a minute please wait.."
-                })
+                // toast({
+                //     title : "This might take a minute please wait.."
+                // })
+                toast("This might take a minute please wait...");
             }, 20000);
             const res = await fetch("/api/generate-audio", {
                 method: "POST",
@@ -66,17 +68,19 @@ function GeneratePodCast({voicePrompt, setVoicePrompt, voiceId, setAudioDuration
             if (data?.success) {
                 setAudioURL(data?.audioFileData?.audioUrl);
                 setAudioStorageID(data?.audioFileData?.audioStorageId);
-                toast({
-                    title : data?.message
-                })
+                // toast({
+                //     title : data?.message
+                // })
+                toast.success(data?.message);
                setIsVoiceGenerated(true);
             } else {
                 setIsVoiceGenerating(false);
                 //toast message
-                toast({
-                    title : data?.message,
-                    variant : "destructive"
-                });
+                // toast({
+                //     title : data?.message,
+                //     variant : "destructive"
+                // });
+                toast.error(data?.message);
             }
         } catch (e) {
             console.log(e);
