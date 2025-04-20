@@ -182,7 +182,7 @@ function PodcastDetailPage() {
               </p>
             </div>
           </div>
-          <QAChat podcastId={podcastId} />
+          <QAChat podcastId={podcastId} transcription={singlePodcastData?.voicePrompt} />
           <FAQ episodeId={podcastId}/>
           <section className="mt-8 flex flex-col gap-4 pb-10 md:pb-0">
             <div className="flex items-center justify-between">

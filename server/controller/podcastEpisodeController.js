@@ -1,5 +1,5 @@
 
-import { getAnswerOfQuestion, getEpisodeSummary } from "../helper/podcastEpisodeMethods.js";
+import { getAnswerOfQuestion, getEpisodeSummary, getTweetedResponse } from "../helper/podcastEpisodeMethods.js";
 import { errorHandler } from "../middleware/errorMiddleware.js";
 import FAQ from "../schema/faqSchema.js";
 
@@ -86,4 +86,27 @@ export async function getMoskedAskedFAQ(req, res , next){
         return next(errorHandler(500 , "Error in getting most asked FAQ"));
     }
 
+}
+
+export async function generateTweets(req, res , next) {
+    try{
+        const { context } = req.body;
+        if(!context){
+            return next(errorHandler(404 , "No Content Found"));
+        }
+
+        const getTweet = await getTweetedResponse(context);
+        if(!getTweet){
+            return next(errorHandler(404 , "Sorry, No Tweets Found"))
+        }
+
+        res.status(200).json({
+            success : true, 
+            message : "Tweet Generated Successfully",
+            tweets : getTweet
+        });
+    }catch(e){
+        return next(errorHandler(500 , "Error Generating Tweet"));
+    }
+    
 }

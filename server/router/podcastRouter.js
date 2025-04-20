@@ -37,4 +37,5 @@ router.route("/check-credits").get(authChecker, checkUserCredit);
 router.route("/views-increment/:podcastId").post(authChecker, handleViewIncrement);
 
 
+
 export default router;

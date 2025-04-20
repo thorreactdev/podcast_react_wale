@@ -5,13 +5,17 @@ import { SendHorizonal } from "lucide-react";
 import ChatBubble from "./ChatBubble";
 import TypingLoader from "./TypingLoader";
 import { toast } from "sonner";
+import TweetModal from "@/model/TweetModal";
 
 // eslint-disable-next-line react/prop-types
-const QAChat = ({ podcastId }) => {
+const QAChat = ({ podcastId, transcription }) => {
   const [userQuestion, setUserQuestion] = useState("");
   const [chat, setChat] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const [openModal, setModalOpen] = useState(false);
+  const [modalLoader, setModalLoader] = useState(false);
+  const [tweet, setTweet] = useState([]);
+;
 
   async function handleAskQuestion(e) {
     e.preventDefault();
@@ -26,7 +30,7 @@ const QAChat = ({ podcastId }) => {
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          Cookie : document.cookie,
+          Cookie: document.cookie,
         },
         body: JSON.stringify({
           question: userQuestion,
@@ -34,13 +38,12 @@ const QAChat = ({ podcastId }) => {
         }),
       });
       const data = await res.json();
-      console.log(data);
       if (data?.success) {
         setChat((prev) => [...prev, { type: "answer", text: data?.faqData }]);
-      }else{
+      } else {
         toast.error(data?.message || "Something went wrong. Try again.");
       }
-    // eslint-disable-next-line no-unused-vars
+      // eslint-disable-next-line no-unused-vars
     } catch (e) {
       setChat((prev) => [
         ...prev,
@@ -51,31 +54,67 @@ const QAChat = ({ podcastId }) => {
     }
   }
 
-  //   useEffect(() => {
-  //     scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
-  //   }, [loading]);
+  async function handleTweet() {
+    setModalLoader(true);
+    try {
+      const res = await fetch("/api/get-tweets", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: document.cookie,
+        },
+        body: JSON.stringify({ context: transcription }),
+      });
+      const data = await res.json();
+      if (data?.success) {
+        const tweets = data?.tweets?.trim()?.split(/\n\s*\n/)?.slice(1,);
+        setTweet(tweets);
+      } else {
+        toast.error(data?.message || "Something went wrong. Try again.");
+      }
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setModalLoader(false);
+    }
+  }
 
   return (
     <div className="flex flex-col gap-3 pt-10 pb-5">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-white-1 font-bold text-18">
-          Ask Questions about the podcast
-        </h1>
-        <span className="text-sm text-white-2 font-semibold">
-          The model will answer based on the podcast you are listening. so ask
-          any question related to the podcast.
-        </span>
+      <div className="flex justify-between">
+        <div className="flex flex-col gap-1">
+          <h1 className="text-white-1 font-bold text-18">
+            Ask Questions about the podcast
+          </h1>
+          <span className="text-sm text-white-2 font-semibold">
+            The model will answer based on the podcast you are listening.
+          </span>
+        </div>
+        <div>
+          <Button
+            onClick={() => {
+              setModalOpen(true);
+              handleTweet();
+            }}
+            className="text-white-1 text-[13px] font-semibold bg-black-1 border border-black-4 md:w-[200px] hover:bg-black-2 duration-300 transition-all"
+          >
+            Generate Tweet
+          </Button>
+        </div>
       </div>
 
       <div className="bg-black-2 rounded-lg">
         {chat.length > 0 ? (
           chat.map((msg, idx) => (
-            <div key={idx} className="flex flex-col gap-2 h-auto overflow-y-auto  p-6  shadow-xl">
-                <ChatBubble  type={msg.type} text={msg.text} />
+            <div
+              key={idx}
+              className="flex flex-col gap-2 h-auto overflow-y-auto  p-6  shadow-xl"
+            >
+              <ChatBubble type={msg.type} text={msg.text} />
             </div>
           ))
         ) : (
-          <div/>
+          <div />
         )}
         {loading && <TypingLoader />}
       </div>
@@ -100,6 +139,13 @@ const QAChat = ({ podcastId }) => {
           </Button>
         </div>
       </form>
+      {openModal && (
+        <TweetModal
+          onClose={() => setModalOpen(false)}
+          modalLoader={modalLoader}
+          tweet={tweet}
+        />
+      )}
     </div>
   );
 };
